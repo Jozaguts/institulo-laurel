@@ -382,7 +382,7 @@ return [
         // "es_GT" => "Spanish (Guatemala)",
         // "es_HN" => "Spanish (Honduras)",
         // "es_419" => "Spanish (Latin America)",
-        // "es_MX" => "Spanish (Mexico)",
+         "es_MX" => "Spanish (Mexico)",
         // "es_NI" => "Spanish (Nicaragua)",
         // "es_PA" => "Spanish (Panama)",
         // "es_PY" => "Spanish (Paraguay)",
