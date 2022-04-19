@@ -7,6 +7,8 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Http\Requests\UserRequest as StoreRequest;
 use App\Http\Requests\UserUpdateRequest as UpdateRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 /**
@@ -107,9 +109,9 @@ class UserCrudController extends CrudController
     /**
      * Store a newly created resource in the database.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store()
+    public function store(): RedirectResponse
     {
         $this->crud->setRequest($this->crud->validateRequest());
         $this->crud->setRequest($this->handlePasswordInput($this->crud->getRequest()));
@@ -118,11 +120,6 @@ class UserCrudController extends CrudController
         return $this->traitStore();
     }
 
-    /**
-     * Update the specified resource in the database.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update()
     {
         $this->crud->setRequest($this->crud->validateRequest());
@@ -138,9 +135,9 @@ class UserCrudController extends CrudController
     protected function handlePasswordInput($request)
     {
         // Remove fields not present on the user.
-        $request->request->remove('password_confirmation');
-        $request->request->remove('roles_show');
-        $request->request->remove('permissions_show');
+//        $request->request->remove('password_confirmation');
+//        $request->request->remove('roles_show');
+//        $request->request->remove('permissions_show');
 
         // Encrypt password if specified.
         if ($request->input('password')) {
@@ -156,51 +153,65 @@ class UserCrudController extends CrudController
     {
         $this->crud->addFields([
             [
-                'name'  => 'name',
-                'label' => 'Nombre',
-                'type'  => 'text',
-            ],
-
-            [
                 'name'  => 'paternal_name',
                 'label' => 'Apellido Paterno',
                 'type'  => 'text',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
             ],
             [
                 'name'  => 'maternal_name',
                 'label' => 'Apellido Materno',
                 'type'  => 'text',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
+            ],
+            [
+                'name'  => 'name',
+                'label' => 'Nombre',
+                'type'  => 'text',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
             ],
             [
                 'name'  => 'email',
                 'label' => 'Correo Electrónico',
                 'type'  => 'email',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
             ],
             [
                 'name'  => 'password',
+                'label' => 'Contraseña',
+                'type'  => 'password',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
+            ],
+            [
+                'name'  => 'code',
                 'label' => 'Código',
                 'type'  => 'text',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
             ],
             [
                 'name'  => 'birthday',
                 'label' => 'Fecha de nacimiento',
                 'type'  => 'date',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
 
             ],
             [
                 'name'  => 'address',
                 'label' => 'Dirección',
                 'type'  => 'text',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
             ],
             [
                 'name'  => 'phone',
                 'label' => 'Teléfono',
-                'type'  => 'text',
+                'type'  => 'custom_phone',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
             ],
             [
                 'name'  => 'contact_name',
                 'label' => 'Contacto',
                 'type'  => 'text',
+                'wrapper' =>['class' => 'col-12 col-md-6 col-gl-6']
             ],
             [
                 // two interconnected entities
