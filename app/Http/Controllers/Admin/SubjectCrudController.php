@@ -35,6 +35,10 @@ class SubjectCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->addColumn(['name'=> 'name','type'=>'text','label'=>'Nombre']);
+        if  (! backpack_user()->hasRole('admin')) {
+            $this->crud->removeButton('delete');
+            $this->crud->removeButton('update');
+        }
     }
 
     protected function setupCreateOperation()
@@ -46,19 +50,6 @@ class SubjectCrudController extends CrudController
 
     protected function setupUpdateOperation()
     {
-        if  (!backpack_user()->hasPermissionTo('crear examenes')){
-            return abort(401);
-        }
         $this->setupCreateOperation();
-    }
-    public function destroy($id)
-    {
-        if  (!backpack_user()->hasPermissionTo('eliminar examenes')){
-            return back();
-        }else {
-            $this->crud->hasAccessOrFail('delete');
-            return $this->crud->delete($id);
-        }
-
     }
 }
