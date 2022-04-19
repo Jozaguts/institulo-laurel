@@ -52,4 +52,12 @@ class SubjectCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+        if  (! backpack_user()->hasRole('admin')) {
+            $this->crud->removeButton('delete');
+            $this->crud->removeButton('update');
+        }
+    }
 }
